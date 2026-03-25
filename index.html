@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-POP × Fashion Collab Report</title>
+
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root{
+      --bg: #fcfaf5;
+      --cream: #fff8ed;
+      --paper: #fffdfa;
+      --line: #e8ddcb;
+      --text: #2e2923;
+      --muted: #746c60;
+
+      --mustard: #c59349;
+      --mustard-soft: #f6e8d2;
+      --blue: #8ea8c2;
+      --blue-soft: #ebf1f7;
+      --pink: #d8a2ae;
+      --pink-soft: #f6eaee;
+
+      --shadow: 0 18px 40px rgba(88, 72, 49, 0.08);
+      --shadow-soft: 0 10px 24px rgba(88, 72, 49, 0.05);
+
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+
+      --font: 'Pretendard', sans-serif;
+    }
+
+    body{
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(216,162,174,.12), transparent 18%),
+        radial-gradient(circle at 88% 16%, rgba(142,168,194,.13), transparent 20%);
+      z-index: 0;
+    }
+
+    .progress-bar{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mustard), var(--blue));
+      z-index: 1200;
+    }
+
+    nav{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      background: rgba(252,250,245,.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(197,147,73,.10);
+      z-index: 1100;
+    }
+
+    .nav-logo{
+      font-size: .95rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: #8c6732;
+    }
+
+    .nav-links{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1rem;
+    }
+
+    .nav-links a{
+      position: relative;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .87rem;
+      transition: .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color: var(--text);
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:100%;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--mustard), var(--blue));
+      transform: scaleX(0);
+      transform-origin:left;
+      transition: transform .25s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after{
+      transform: scaleX(1);
+    }
+
+    .hero{
+      min-height: 100vh;
+      padding: 118px 5vw 72px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+      opacity:.7;
+      filter: blur(8px);
+    }
+
+    .hero::before{
+      width: 340px;
+      height: 340px;
+      background: rgba(216,162,174,.13);
+      top: -80px;
+      right: -30px;
+    }
+
+    .hero::after{
+      width: 280px;
+      height: 280px;
+      background: rgba(142,168,194,.14);
+      bottom: -40px;
+      left: -30px;
+    }
+
+    .hero-wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.18em;
+      color:#9b7640;
+      margin-bottom:1rem;
+    }
+
+    .eyebrow-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background: linear-gradient(135deg, var(--mustard), var(--blue));
+      display:inline-block;
+    }
+
+    .hero-title-wrap{
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .hero-vertical{
+      position: absolute;
+      left: -56px;
+      top: 18px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: .72rem;
+      letter-spacing: .22em;
+      color: rgba(115, 104, 89, .75);
+      font-weight: 700;
+    }
+
+    .hero-title{
+      font-size: clamp(2.9rem, 6.4vw, 5.9rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+      font-weight: 800;
+      word-break: keep-all;
+      max-width: 780px;
+    }
+
+    .hero-title .accent-a{ color: #b78339; }
+    .hero-title .accent-b{ color: #7f9db9; }
+
+    .hero-desc{
+      max-width: 590px;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.7rem;
+      margin-bottom:1.35rem;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.68rem .92rem;
+      border-radius:999px;
+      background: rgba(255,255,255,.84);
+      border:1px solid #eadfce;
+      font-size:.86rem;
+      color:#655f56;
+      box-shadow: 0 6px 18px rgba(0,0,0,.03);
+    }
+
+    .chip svg{
+      width:15px;
+      height:15px;
+      stroke-width:1.8;
+      fill:none;
+    }
+
+    .chip.mustard svg{ stroke: var(--mustard); }
+    .chip.blue svg{ stroke: var(--blue); }
+    .chip.pink svg{ stroke: var(--pink); }
+
+    .hero-note{
+      display: inline-block;
+      max-width: 520px;
+      padding: 1rem 1.05rem;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fffdf9, #f9f1e6);
+      border:1px solid #ead8ba;
+      box-shadow: var(--shadow);
+      font-size: .96rem;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap: 1rem;
+      margin: 2rem 0 0;
+      color:#9c8160;
+      font-size:.82rem;
+      letter-spacing:.12em;
+      font-weight:700;
+    }
+
+    .divider::before,
+    .divider::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background: linear-gradient(90deg, transparent, #dccdb7, transparent);
+    }
+
+    .hero-side{
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-notes-grid{
+      position: relative;
+      width: 100%;
+      display: grid;
+      gap: 1rem;
+      padding: 2rem;
+      border: 1px dashed rgba(197,147,73,.28);
+      border-radius: 32px;
+    }
+
+    .hero-note-card{
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 1rem;
+      align-items: start;
+      background: rgba(255,255,255,.92);
+      border:1px solid #eadfce;
+      border-radius: 24px;
+      padding: 1rem 1.05rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .hero-note-card:hover{
+      transform: scale(1.03);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-note-card .icon{
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .hero-note-card .icon svg{
+      width: 26px;
+      height: 26px;
+      fill:none;
+      stroke-width:1.8;
+    }
+
+    .hero-note-card.mustard .icon{
+      background: var(--mustard-soft);
+    }
+    .hero-note-card.mustard .icon svg{
+      stroke: var(--mustard);
+    }
+
+    .hero-note-card.blue .icon{
+      background: var(--blue-soft);
+    }
+    .hero-note-card.blue .icon svg{
+      stroke: var(--blue);
+    }
+
+    .hero-note-card.pink .icon{
+      background: var(--pink-soft);
+    }
+    .hero-note-card.pink .icon svg{
+      stroke: var(--pink);
+    }
+
+    .hero-note-card small{
+      display:block;
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.14em;
+      margin-bottom:.45rem;
+    }
+
+    .hero-note-card.mustard small{ color:#9a753c; }
+    .hero-note-card.blue small{ color:#6f8dad; }
+    .hero-note-card.pink small{ color:#b17b8d; }
+
+    .hero-note-card .big-num{
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: .3rem;
+    }
+
+    .hero-note-card p{
+      font-size:.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    section{
+      padding: 98px 5vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-cream{ background: var(--cream); }
+    .section-peach{ background: #fdf2ec; }
+    .section-blue{ background: #f4f7fb; }
+    .section-clear{ background: transparent; }
+
+    .section-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .section-head{
+      display:grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 2rem;
+      align-items:end;
+      margin-bottom: 2.3rem;
+    }
+
+    .section-tag{
+      display:inline-block;
+      font-size:.78rem;
+      letter-spacing:.18em;
+      font-weight:800;
+      color:#9b7945;
+      margin-bottom:.7rem;
+    }
+
+    .section-title{
+      font-size: clamp(1.85rem, 4vw, 3rem);
+      line-height:1.14;
+      letter-spacing:-.03em;
+      font-weight:800;
+      word-break: keep-all;
+    }
+
+    .section-lead{
+      color: var(--muted);
+      max-width: 700px;
+      font-size: .98rem;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.03fr .97fr;
+      gap: 1rem;
+    }
+
+    .statement{
+      padding: 1.8rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, #fffdf9, #f8f0e4);
+      border:1px solid #ead8bb;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .statement::after{
+      content:"✦";
+      position:absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 1.2rem;
+      color: var(--pink);
+      opacity: .7;
+    }
+
+    .statement .mini{
+      color:#a78045;
+      font-size:.75rem;
+      font-weight:800;
+      letter-spacing:.18em;
+      margin-bottom:.85rem;
+    }
+
+    .statement h3{
+      font-size: clamp(1.6rem, 3.2vw, 2.45rem);
+      line-height:1.22;
+      letter-spacing:-.03em;
+      margin-bottom:.75rem;
+      font-weight:800;
+    }
+
+    .statement p{
+      color: var(--muted);
+    }
+
+    .info-panel{
+      display:grid;
+      gap:.8rem;
+    }
+
+    .info-item{
+      display:flex;
+      gap:.9rem;
+      align-items:flex-start;
+      padding: 1rem 1.05rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,.82);
+      border:1px solid #eee1cf;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .icon-badge{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .icon-badge.mustard{ background: var(--mustard-soft); }
+    .icon-badge.blue{ background: var(--blue-soft); }
+    .icon-badge.pink{ background: var(--pink-soft); }
+
+    .icon-badge svg{
+      width:18px;
+      height:18px;
+      fill:none;
+      stroke-width:1.8;
+    }
+
+    .icon-badge.mustard svg{ stroke: var(--mustard); }
+    .icon-badge.blue svg{ stroke: var(--blue); }
+    .icon-badge.pink svg{ stroke: var(--pink); }
+
+    .info-item strong{
+      display:block;
+      margin-bottom:.15rem;
+      font-size:.96rem;
+    }
+
+    .info-item p{
+      color: var(--muted);
+      font-size:.92rem;
+    }
+
+    .mini-quote{
+      padding-top: 1.8rem;
+      text-align:center;
+    }
+
+    .mini-quote span{
+      display:inline-block;
+      padding:.9rem 1.15rem;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid #eadfce;
+      color:#8c7150;
+      font-size:.92rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,.03);
+    }
+
+    .data-band{
+      position: relative;
+      margin-bottom: 1.25rem;
+      padding: 1.4rem 1.4rem 1.2rem;
+      background: rgba(255,255,255,.78);
+      border:1px solid #eadfce;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .data-band::before{
+      content:"DATA SNAPSHOT";
+      position:absolute;
+      top: 18px;
+      right: 20px;
+      font-size: .7rem;
+      letter-spacing: .16em;
+      font-weight: 800;
+      color: rgba(140, 116, 78, .58);
+    }
+
+    .kpi-row{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .9rem;
+      align-items: stretch;
+    }
+
+    .kpi{
+      position: relative;
+      background:#fffdfa;
+      border:1px solid #eadfce;
+      border-radius: 22px;
+      padding: 1.15rem 1rem 1rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform .25s ease, box-shadow .25s ease;
+      overflow:hidden;
+    }
+
+    .kpi:hover{
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .kpi::before{
+      content:"";
+      position:absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+    }
+
+    .kpi.mustard::before{ background: var(--mustard); }
+    .kpi.blue::before{ background: var(--blue); }
+    .kpi.pink::before{ background: var(--pink); }
+    .kpi.gray::before{ background: #b8aea0; }
+
+    .kpi-label{
+      font-size:.84rem;
+      line-height:1.4;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      max-width: 11ch;
+    }
+
+    .kpi strong{
+      display:inline-block;
+      font-size: clamp(2rem, 4.3vw, 3rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .kpi span{
+      font-size: .98rem;
+      margin-left: .12rem;
+    }
+
+    .kpi.mustard span{ color: var(--mustard); }
+    .kpi.blue span{ color: var(--blue); }
+    .kpi.pink span{ color: var(--pink); }
+    .kpi.gray span{ color: #8c8372; }
+
+    .kpi small{
+      display:block;
+      margin-top: .75rem;
+      padding-top: .75rem;
+      border-top: 1px solid #efe6d7;
+      color:#8c8372;
+      font-size:.82rem;
+    }
+
+    .chart-box{
+      background: rgba(255,255,255,.84);
+      border:1px solid #eadfce;
+      border-radius: 28px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .chart-note{
+      margin-top:.9rem;
+      color: var(--muted);
+      font-size:.9rem;
+    }
+
+    .cases-editorial{
+      display:grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 1rem;
+      align-items:start;
+    }
+
+    .featured-overlay{
+      position: relative;
+      min-height: 540px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #f2ebe1;
+    }
+
+    .featured-overlay img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      inset:0;
+      transition: transform .5s ease;
+    }
+
+    .featured-overlay:hover img{
+      transform: scale(1.04);
+    }
+
+    .featured-overlay::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to top, rgba(33,27,21,.72), rgba(33,27,21,.08) 55%, rgba(33,27,21,.02));
+    }
+
+    .featured-badge{
+      position:absolute;
+      top:18px;
+      left:18px;
+      z-index:2;
+      background: rgba(255,253,249,.94);
+      border:1px solid #ead8bc;
+      color:#9c773f;
+      padding:.48rem .75rem;
+      border-radius:999px;
+      font-size:.74rem;
+      font-weight:700;
+    }
+
+    .featured-copy{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:2;
+      padding: 1.5rem;
+      color:#fffaf3;
+    }
+
+    .featured-copy small{
+      display:block;
+      letter-spacing:.15em;
+      font-weight:800;
+      font-size:.72rem;
+      margin-bottom:.6rem;
+      color: #ecd7b0;
+    }
+
+    .featured-copy h3{
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      line-height:1.1;
+      margin-bottom:.7rem;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .featured-copy p{
+      max-width: 520px;
+      font-size:.95rem;
+      color: rgba(255,250,243,.88);
+      margin-bottom:.85rem;
+    }
+
+    .case-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+    }
+
+    .case-tags span{
+      font-size:.75rem;
+      padding:.46rem .68rem;
+      border-radius:999px;
+      background: rgba(255,248,238,.18);
+      border:1px solid rgba(255,233,193,.35);
+      color:#fff3da;
+      backdrop-filter: blur(6px);
+    }
+
+    .case-side{
+      display:grid;
+      gap:1rem;
+    }
+
+    .case-small{
+      background:#fffdf9;
+      border:1px solid #eadfce;
+      border-radius: 24px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .case-small:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 22px 42px rgba(80,67,44,.11);
+    }
+
+    .case-small-media{
+      position:relative;
+      height: 188px;
+      overflow:hidden;
+      background:#f3ece3;
+    }
+
+    .case-small-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition: transform .45s ease;
+    }
+
+    .case-small:hover img{
+      transform: scale(1.05);
+    }
+
+    .stamp{
+      position:absolute;
+      top:16px;
+      left:16px;
+      padding:.45rem .72rem;
+      border-radius:999px;
+      background: rgba(255,253,249,.94);
+      font-size:.74rem;
+      font-weight:700;
+      border:1px solid #ead8bc;
+    }
+
+    .stamp.blue{ color:#6f8dad; }
+    .stamp.pink{ color:#b17b8d; }
+
+    .case-small-body{
+      padding: 1rem;
+    }
+
+    .case-small h3{
+      font-size:1.08rem;
+      font-weight:800;
+      margin-bottom:.4rem;
+    }
+
+    .case-small p{
+      color: var(--muted);
+      font-size:.9rem;
+      margin-bottom:.75rem;
+    }
+
+    .small-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.42rem;
+    }
+
+    .small-tags span{
+      font-size:.74rem;
+      padding:.42rem .64rem;
+      border-radius:999px;
+      background:#fff8ee;
+      border:1px solid #eddab6;
+      color:#8e7146;
+    }
+
+    .impact-band{
+      margin-bottom: 1rem;
+      padding: 1.35rem 1.4rem;
+      border-radius: 28px;
+      background: linear-gradient(90deg, #fffdf9, #f3f7fb);
+      border: 1px solid #e1d7c8;
+      box-shadow: var(--shadow);
+    }
+
+    .impact-band h3{
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
+      line-height: 1.25;
+      letter-spacing: -.03em;
+      font-weight: 800;
+    }
+
+    .impact-strips{
+      display: grid;
+      gap: .8rem;
+    }
+
+    .impact-strip{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      align-items: stretch;
+      background: rgba(255,255,255,.82);
+      border:1px solid #eadfce;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform .25s ease;
+    }
+
+    .impact-strip:hover{
+      transform: translateX(6px);
+    }
+
+    .impact-label{
+      padding: 1rem 1.1rem;
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      font-weight: 800;
+      font-size: 1rem;
+      color:#3c352e;
+    }
+
+    .impact-body{
+      padding: 1rem 1.2rem;
+      color: var(--muted);
+      font-size: .93rem;
+      border-left: 1px solid #eadfce;
+      display:flex;
+      align-items:center;
+    }
+
+    .impact-label.mustard{ background: var(--mustard-soft); }
+    .impact-label.blue{ background: var(--blue-soft); }
+    .impact-label.pink{ background: var(--pink-soft); }
+    .impact-label.gray{ background: #f3efe8; }
+
+    .risk-wrap{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 1rem;
+    }
+
+    .risk-list{
+      display:grid;
+      gap:.8rem;
+    }
+
+    .risk-note{
+      background:#fffdf9;
+      border:1px solid #eadfce;
+      border-radius: 24px;
+      padding: 1rem 1.05rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .risk-note::before{
+      content:"!";
+      position:absolute;
+      top: -10px;
+      right: 16px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: var(--pink-soft);
+      color: #ad7082;
+      border:1px solid #e0bcc8;
+      font-weight:800;
+      font-size:.9rem;
+    }
+
+    .risk-note h4{
+      font-size:.97rem;
+      font-weight:800;
+      margin-bottom:.25rem;
+    }
+
+    .risk-note p{
+      color: var(--muted);
+      font-size:.9rem;
+    }
+
+    .end-wrap{
+      display:grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+
+    .end-card{
+      background: linear-gradient(180deg, #fffdf8, #f7efe3);
+      border:1px solid #e7d5b4;
+      border-radius: 28px;
+      padding:1.7rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .end-card::before{
+      content:"";
+      position:absolute;
+      top:-30px;
+      right:-20px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background: rgba(216,162,174,.12);
+    }
+
+    .end-card h3{
+      font-size: clamp(1.75rem, 3.3vw, 2.55rem);
+      line-height:1.2;
+      letter-spacing:-.03em;
+      margin-bottom:.85rem;
+      font-weight:800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .end-card p{
+      color: var(--muted);
+      margin-bottom:.7rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .end-points{
+      display:grid;
+      gap:.8rem;
+    }
+
+    .end-point{
+      background:#fff;
+      border-left: 4px solid var(--mustard);
+      border-top: 1px solid #eadfce;
+      border-right: 1px solid #eadfce;
+      border-bottom: 1px solid #eadfce;
+      border-radius: 0 18px 18px 0;
+      padding:1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .end-point strong{
+      display:block;
+      margin-bottom:.18rem;
+      font-size:.95rem;
+    }
+
+    .end-point p{
+      color: var(--muted);
+      font-size:.9rem;
+    }
+
+    .ref-list{
+      display:grid;
+      gap:.65rem;
+    }
+
+    .ref{
+      background:#fffdf9;
+      border:1px solid #eadfce;
+      border-radius:16px;
+      padding:.9rem 1rem;
+      color: var(--muted);
+      font-size:.9rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,.025);
+    }
+
+    .ref strong{ color: var(--text); }
+
+    footer{
+      padding: 48px 5vw 70px;
+      text-align:center;
+      color: var(--muted);
+      font-size:.82rem;
+      position:relative;
+      z-index:1;
+    }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(24px);
+      transition: .8s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:none;
+    }
+
+    @media (max-width: 1080px){
+      .hero-wrap,
+      .section-head,
+      .split,
+      .risk-wrap,
+      .end-wrap,
+      .cases-editorial{
+        grid-template-columns:1fr;
+      }
+
+      .kpi-row{
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .impact-strip{
+        grid-template-columns: 1fr;
+      }
+
+      .impact-body{
+        border-left: none;
+        border-top: 1px solid #eadfce;
+      }
+    }
+
+    @media (max-width: 720px){
+      nav{
+        height:auto;
+        padding: .9rem 1rem;
+        align-items:flex-start;
+        flex-direction:column;
+        gap:.6rem;
+      }
+
+      .hero{
+        padding: 132px 1rem 60px;
+      }
+
+      section{
+        padding: 84px 1rem;
+      }
+
+      .hero-title{
+        font-size: 2.7rem;
+      }
+
+      .hero-vertical{
+        display:none;
+      }
+
+      .hero-notes-grid{
+        padding: 1rem;
+      }
+
+      .hero-note-card{
+        grid-template-columns: 48px 1fr;
+      }
+
+      .hero-note-card .icon{
+        width: 48px;
+        height: 48px;
+      }
+
+      .kpi-row{
+        grid-template-columns:1fr;
+      }
+
+      .section-title{
+        font-size: 1.95rem;
+      }
+
+      .featured-overlay{
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav>
+    <div class="nav-logo">K-POP FASHION REPORT</div>
+    <div class="nav-links">
+      <a href="#intro">Intro</a>
+      <a href="#data">Data</a>
+      <a href="#cases">Cases</a>
+      <a href="#impact">Impact</a>
+      <a href="#risk">Risk</a>
+      <a href="#end">End</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-wrap">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> 2025 INDUSTRY ANALYSIS</div>
+
+        <div class="hero-title-wrap">
+          <div class="hero-vertical">EDITORIAL REPORT</div>
+          <h1 class="hero-title">
+            K-POP과 패션의 만남,<br>
+            <span class="accent-a">굿즈는 더 감각적이고</span><br>
+            <span class="accent-b">더 특별한 경험이 된다</span>
+          </h1>
+        </div>
+
+        <p class="hero-desc">
+          콜라보형 굿즈는 단순 판매 상품이 아니라, 팬덤의 취향과 브랜드의 이미지를 함께 소비하게 만드는 문화적 장치가 된다.
+        </p>
+
+        <div class="hero-chips">
+          <div class="chip mustard">
+            <svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/></svg>
+            팬덤 소비
+          </div>
+          <div class="chip blue">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16l-2 10H6L4 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+            패션 협업
+          </div>
+          <div class="chip pink">
+            <svg viewBox="0 0 24 24"><path d="M6 12c2-4 10-4 12 0-2 4-10 4-12 0Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+            확산 효과
+          </div>
+        </div>
+
+        <div class="hero-note">
+          “성공한 협업은 제품을 파는 것이 아니라, 팬이 참여하고 싶어지는 분위기와 서사를 만든다.”
+        </div>
+
+        <div class="divider">EDITORIAL NOTE</div>
+      </div>
+
+      <div class="hero-side reveal">
+        <div class="hero-notes-grid">
+          <div class="hero-note-card mustard">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="8"/></svg>
+            </div>
+            <div>
+              <small>KEY NOTE</small>
+              <div class="big-num">94%</div>
+              <p>10~20대 굿즈 구매 경험률. 팬덤 소비는 이미 일상적이다.</p>
+            </div>
+          </div>
+
+          <div class="hero-note-card blue">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M5 19h14"/><path d="M7 16V8l5-3 5 3v8"/><path d="M10 19v-5h4v5"/></svg>
+            </div>
+            <div>
+              <small>MOOD NOTE</small>
+              <p>좋은 협업은 ‘누가 붙었는가’보다 ‘얼마나 잘 어울리는가’에서 힘이 생긴다.</p>
+            </div>
+          </div>
+
+          <div class="hero-note-card pink">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            </div>
+            <div>
+              <small>FAN REACTION</small>
+              <p>구매 이후 인증, 공유, 재판매까지 이어질 때 협업은 하나의 문화 장면처럼 기억된다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="intro" class="section-clear">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">INTRO</span>
+          <h2 class="section-title">음악은 스트리밍으로 듣고,<br>굿즈는 취향으로 소유한다</h2>
+        </div>
+        <p class="section-lead">
+          팬들은 더 이상 물건만 사지 않는다. 아티스트의 이미지, 브랜드의 분위기, 한정판의 희소성을 함께 소비한다.
+        </p>
+      </div>
+
+      <div class="split">
+        <div class="statement reveal">
+          <div class="mini">WHY IT WORKS</div>
+          <h3>굿즈는 상품이라기보다<br>참여 경험에 가깝다</h3>
+          <p>팝업, 인증샷, 오픈런, 리셀까지 이어지는 소비 방식이 콜라보의 파급력을 키운다.</p>
+        </div>
+
+        <div class="info-panel reveal">
+          <div class="info-item">
+            <div class="icon-badge mustard">
+              <svg viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M12 4v10"/><path d="m8 10 4 4 4-4"/></svg>
+            </div>
+            <div>
+              <strong>소장 가치</strong>
+              <p>스트리밍 시대일수록 실물 굿즈의 상징성이 커진다.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="icon-badge pink">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            </div>
+            <div>
+              <strong>감정적 연결</strong>
+              <p>팬덤은 제품보다 그 안의 분위기와 서사에 반응한다.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="icon-badge blue">
+              <svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/></svg>
+            </div>
+            <div>
+              <strong>확산성</strong>
+              <p>구매 이후 SNS 공유와 재판매까지 반응이 이어진다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-quote reveal">
+        <span>팬덤 소비는 ‘소유’보다 ‘참여’에 더 가깝다.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="data" class="section-cream">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">DATA</span>
+          <h2 class="section-title">숫자로 보는 팬덤 소비 반응</h2>
+        </div>
+        <p class="section-lead">
+          굿즈 구매 경험률, 한정판 선호, 오픈런 반응은 콜라보형 소비가 이미 강한 시장성을 갖고 있음을 보여준다.
+        </p>
+      </div>
+
+      <div class="data-band reveal">
+        <div class="kpi-row">
+          <div class="kpi mustard">
+            <div class="kpi-label">굿즈 구매 경험</div>
+            <strong class="counter" data-target="94">0</strong><span>%</span>
+            <small>높은 보편성</small>
+          </div>
+          <div class="kpi blue">
+            <div class="kpi-label">한정판 선호</div>
+            <strong class="counter" data-target="89">0</strong><span>%</span>
+            <small>희소성 효과</small>
+          </div>
+          <div class="kpi pink">
+            <div class="kpi-label">오픈런 경험·의향</div>
+            <strong class="counter" data-target="84">0</strong><span>%</span>
+            <small>이벤트형 소비</small>
+          </div>
+          <div class="kpi gray">
+            <div class="kpi-label">의류·패션 잡화 선호</div>
+            <strong class="counter" data-target="21">0</strong><span>%</span>
+            <small>패션 확장성</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-box reveal">
+        <canvas id="collabChart"></canvas>
+        <p class="chart-note">
+          굿즈 소비는 단순 구매보다 참여와 인증, 소장 욕구가 결합된 형태로 읽을 수 있다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases" class="section-peach">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">CASES</span>
+          <h2 class="section-title">기억에 남는 협업은<br>왜 오래 회자될까</h2>
+        </div>
+        <p class="section-lead">
+          브랜드 적합성, 희소성, 팬덤 반응, SNS 확산력이 함께 움직일 때 협업은 하나의 문화 장면처럼 기억된다.
+        </p>
+      </div>
+
+      <div class="cases-editorial">
+        <article class="featured-overlay reveal">
+          <img src="제니 캘빈클라인 팝업스토어.jpg" alt="제니 캘빈클라인 협업">
+          <div class="featured-badge">featured case</div>
+          <div class="featured-copy">
+            <small>JENNIE × CALVIN KLEIN</small>
+            <h3>“잘 어울리는 협업”은<br>광고보다 오래 남는다</h3>
+            <p>
+              아티스트 이미지와 브랜드 분위기가 자연스럽게 맞물릴 때, 협업은 상품을 넘어 하나의 장면처럼 기억된다.
+            </p>
+            <div class="case-tags">
+              <span>브랜드 적합성</span>
+              <span>디자인 참여</span>
+              <span>화제성</span>
+              <span>패션 감도</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="case-side">
+          <article class="case-small reveal">
+            <div class="case-small-media">
+              <img src="지디 나이키 콜라보 신발.png" alt="지드래곤 나이키 협업">
+              <div class="stamp pink">limited</div>
+            </div>
+            <div class="case-small-body">
+              <h3>지드래곤 × 나이키</h3>
+              <p>희소성과 상징성이 결합되며 리셀 시장까지 확장된 스니커즈 협업.</p>
+              <div class="small-tags">
+                <span>희소성</span>
+                <span>리셀 파급력</span>
+                <span>스트리트 무드</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-small reveal">
+            <div class="case-small-media">
+              <img src="맥도날드-뉴진스-굿즈.png" alt="뉴진스 맥도날드 협업">
+              <div class="stamp blue">lifestyle</div>
+            </div>
+            <div class="case-small-body">
+              <h3>뉴진스 × 맥도날드</h3>
+              <p>패션을 넘어 K-POP 감성이 일상 소비와 결합할 수 있음을 보여준다.</p>
+              <div class="small-tags">
+                <span>대중성</span>
+                <span>체험형 소비</span>
+                <span>확산성</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact" class="section-blue">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">IMPACT</span>
+          <h2 class="section-title">누가 어떤 영향을 받는가</h2>
+        </div>
+        <p class="section-lead">
+          콜라보형 굿즈는 브랜드, 아티스트, 팬덤, 산업 구조 전반에서 인식과 행동을 바꾼다.
+        </p>
+      </div>
+
+      <div class="impact-band reveal">
+        <h3>콜라보형 굿즈는 매출만이 아니라 브랜드 이미지, 팬 경험, IP 확장 방식까지 함께 바꾼다.</h3>
+      </div>
+
+      <div class="impact-strips">
+        <div class="impact-strip reveal">
+          <div class="impact-label mustard">
+            <div class="icon-badge mustard">
+              <svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 19V9l6-4 6 4v10"/></svg>
+            </div>
+            브랜드
+          </div>
+          <div class="impact-body">젊은 소비자와의 접점을 넓히고, 브랜드 이미지를 더 트렌디하게 만든다.</div>
+        </div>
+
+        <div class="impact-strip reveal">
+          <div class="impact-label blue">
+            <div class="icon-badge blue">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20c1.5-3 4-4.5 7-4.5S17.5 17 19 20"/></svg>
+            </div>
+            아티스트·엔터사
+          </div>
+          <div class="impact-body">아티스트 IP의 활용 폭이 넓어지고, 수익 구조도 더 다양해진다.</div>
+        </div>
+
+        <div class="impact-strip reveal">
+          <div class="impact-label pink">
+            <div class="icon-badge pink">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            </div>
+            팬덤
+          </div>
+          <div class="impact-body">구매는 끝이 아니라 팝업 방문, 인증, 공유, 리셀까지 이어지는 경험이 된다.</div>
+        </div>
+
+        <div class="impact-strip reveal">
+          <div class="impact-label gray">
+            <div class="icon-badge mustard">
+              <svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M7 14l3-3 3 2 4-5"/></svg>
+            </div>
+            산업
+          </div>
+          <div class="impact-body">K-POP IP는 패션·뷰티·F&amp;B 등 다양한 시장으로 계속 확장된다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="risk" class="section-clear">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">RISK</span>
+          <h2 class="section-title">반응이 큰 만큼,<br>피로도도 함께 커질 수 있다</h2>
+        </div>
+        <p class="section-lead">
+          높은 화제성은 장점이지만, 과열 판매 구조와 상업성 논란은 신중하게 다뤄야 한다.
+        </p>
+      </div>
+
+      <div class="risk-wrap">
+        <div class="statement reveal">
+          <div class="mini">CAUTION</div>
+          <h3>희소성은 매력적이지만,<br>과하면 피로를 만든다</h3>
+          <p>성공적인 협업일수록 공급 구조와 진정성, 운영 경험까지 함께 설계해야 한다.</p>
+        </div>
+
+        <div class="risk-list">
+          <div class="risk-note reveal">
+            <h4>상업성 논란</h4>
+            <p>협업이 반복될수록 팬덤 피로도가 높아질 수 있다.</p>
+          </div>
+          <div class="risk-note reveal">
+            <h4>오픈런 과열</h4>
+            <p>품절과 예약 실패, 재고 부족은 부정적 경험으로 이어진다.</p>
+          </div>
+          <div class="risk-note reveal">
+            <h4>환경 이슈</h4>
+            <p>굿즈 과잉 생산은 ESG 관점의 비판을 받을 수 있다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="end" class="section-cream">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">END</span>
+          <h2 class="section-title">결국 중요한 것은<br>제품보다 분위기다</h2>
+        </div>
+        <p class="section-lead">
+          K-POP × 패션 협업의 힘은 유명세 자체보다, 팬이 참여하고 싶어지는 경험을 만드는 데 있다.
+        </p>
+      </div>
+
+      <div class="end-wrap">
+        <div class="end-card reveal">
+          <h3>기억에 남는 콜라보는<br>“무엇을 팔았는가”보다<br>“어떤 느낌을 만들었는가”에 가깝다.</h3>
+          <p>브랜드 적합성, 희소성, 팬덤 경험이 자연스럽게 연결될수록 협업은 더 오래 남는다.</p>
+          <p>그래서 좋은 콜라보는 광고보다 하나의 문화 장면처럼 기억된다.</p>
+        </div>
+
+        <div class="end-points reveal">
+          <div class="end-point">
+            <strong>01. 잘 어울리는 조합</strong>
+            <p>브랜드와 아티스트의 무드가 자연스럽게 연결되어야 한다.</p>
+          </div>
+          <div class="end-point">
+            <strong>02. 참여 가능한 경험</strong>
+            <p>구매 이후에도 공유와 확산이 이어져야 한다.</p>
+          </div>
+          <div class="end-point">
+            <strong>03. 오래 남는 설계</strong>
+            <p>단기 화제성보다 지속 가능한 가치가 중요하다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="references" class="section-clear">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-tag">REFERENCES</span>
+          <h2 class="section-title">참고 자료</h2>
+        </div>
+        <p class="section-lead">
+          제출 전에는 실제 링크와 연도를 조금 더 정확하게 정리하면 신뢰감이 더 올라간다.
+        </p>
+      </div>
+
+      <div class="ref-list">
+        <div class="ref reveal"><strong>형지엘리트</strong> — 1020세대 굿즈 구매 행태 조사 (2023.05)</div>
+        <div class="ref reveal"><strong>제니 × 캘빈클라인</strong> — 협업 성과 및 패션 브랜드 사례</div>
+        <div class="ref reveal"><strong>지드래곤 × 나이키</strong> — 리셀 및 스트리트 패션 사례</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 K-POP Fashion Collaboration Report for Academic Presentation
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id], header[id]');
+    const progressBar = document.getElementById('progressBar');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.16 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+
+        entry.target.querySelectorAll('.counter').forEach(counter => {
+          if(counter.dataset.started) return;
+          counter.dataset.started = "true";
+
+          const target = +counter.dataset.target;
+          let current = 0;
+          const duration = 1100;
+          const stepTime = 18;
+          const increment = Math.max(1, Math.ceil(target / (duration / stepTime)));
+
+          const timer = setInterval(() => {
+            current += increment;
+            if(current >= target){
+              current = target;
+              clearInterval(timer);
+            }
+            counter.textContent = current;
+          }, stepTime);
+        });
+      });
+    }, { threshold: 0.35 });
+
+    const kpiRow = document.querySelector('.kpi-row');
+    if(kpiRow) counterObserver.observe(kpiRow);
+
+    function handleScroll(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+
+      let currentId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        if(scrollTop >= top) currentId = section.getAttribute('id');
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('load', handleScroll);
+
+    const ctx = document.getElementById('collabChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['구매 경험', '한정판 선호', '오픈런 반응', '패션 잡화 선호'],
+        datasets: [{
+          data: [94, 89, 84, 21],
+          backgroundColor: ['#c59349', '#8ea8c2', '#d8a2ae', '#b7aea2'],
+          borderRadius: 10,
+          borderSkipped: false,
+          barThickness: 42
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            displayColors: false,
+            backgroundColor: 'rgba(61,52,40,0.92)',
+            padding: 12,
+            callbacks: {
+              label: function(context){
+                return '비율: ' + context.raw + '%';
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            grid: { color: 'rgba(120,104,73,0.10)' },
+            ticks: {
+              color: '#756d61',
+              callback: function(value){ return value + '%'; }
+            }
+          },
+          x: {
+            grid: { display: false },
+            ticks: {
+              color: '#4d463e',
+              font: { size: 12, weight: '600' }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
