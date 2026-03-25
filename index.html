@@ -26,6 +26,7 @@
       --blue-soft: #ebf1f7;
       --pink: #d8a2ae;
       --pink-soft: #f6eaee;
+      --gray-soft: #f3efe8;
 
       --shadow: 0 18px 40px rgba(88, 72, 49, 0.08);
       --shadow-soft: 0 10px 24px rgba(88, 72, 49, 0.05);
@@ -53,15 +54,14 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 10% 12%, rgba(216,162,174,.12), transparent 18%),
-        radial-gradient(circle at 88% 16%, rgba(142,168,194,.13), transparent 20%);
+        radial-gradient(circle at 10% 12%, rgba(216,162,174,.10), transparent 18%),
+        radial-gradient(circle at 88% 16%, rgba(142,168,194,.11), transparent 20%);
       z-index: 0;
     }
 
     .progress-bar{
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--mustard), var(--blue));
@@ -70,8 +70,7 @@
 
     nav{
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 68px;
       display: flex;
@@ -152,7 +151,7 @@
     .hero::before{
       width: 340px;
       height: 340px;
-      background: rgba(216,162,174,.13);
+      background: rgba(216,162,174,.12);
       top: -80px;
       right: -30px;
     }
@@ -160,7 +159,7 @@
     .hero::after{
       width: 280px;
       height: 280px;
-      background: rgba(142,168,194,.14);
+      background: rgba(142,168,194,.13);
       bottom: -40px;
       left: -30px;
     }
@@ -195,39 +194,33 @@
     }
 
     .hero-title-wrap{
-      position: relative;
       margin-bottom: 1rem;
     }
 
-    .hero-vertical{
-      position: absolute;
-      left: -56px;
-      top: 18px;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      font-size: .72rem;
-      letter-spacing: .22em;
-      color: rgba(115, 104, 89, .75);
-      font-weight: 700;
-    }
-
     .hero-title{
-      font-size: clamp(2.9rem, 6.4vw, 5.9rem);
-      line-height: 1;
+      font-size: clamp(2.9rem, 6vw, 5.6rem);
+      line-height: 1.02;
       letter-spacing: -.05em;
       font-weight: 800;
       word-break: keep-all;
-      max-width: 780px;
+      max-width: 760px;
     }
 
     .hero-title .accent-a{ color: #b78339; }
     .hero-title .accent-b{ color: #7f9db9; }
 
+    .hero-subtitle{
+      margin-top: .8rem;
+      font-size: .95rem;
+      color: #8c7b66;
+      letter-spacing: .02em;
+    }
+
     .hero-desc{
       max-width: 590px;
       color: var(--muted);
       font-size: 1rem;
-      margin-bottom: 1.25rem;
+      margin: 1.25rem 0 1.25rem;
     }
 
     .hero-chips{
@@ -292,21 +285,40 @@
     }
 
     .hero-side{
-      position: relative;
-      min-height: 500px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .hero-notes-grid{
-      position: relative;
       width: 100%;
       display: grid;
       gap: 1rem;
-      padding: 2rem;
-      border: 1px dashed rgba(197,147,73,.28);
-      border-radius: 32px;
+      padding: 1.4rem;
+      border: 1px solid #eadfce;
+      border-radius: 30px;
+      background: rgba(255,255,255,.46);
+      backdrop-filter: blur(4px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-notes-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding-bottom:.2rem;
+    }
+
+    .hero-notes-head strong{
+      font-size:.82rem;
+      letter-spacing:.16em;
+      color:#8f7350;
+    }
+
+    .hero-notes-head span{
+      font-size:.74rem;
+      color:#a2917c;
     }
 
     .hero-note-card{
@@ -314,7 +326,7 @@
       grid-template-columns: 56px 1fr;
       gap: 1rem;
       align-items: start;
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.96);
       border:1px solid #eadfce;
       border-radius: 24px;
       padding: 1rem 1.05rem;
@@ -323,7 +335,7 @@
     }
 
     .hero-note-card:hover{
-      transform: scale(1.03);
+      transform: scale(1.025);
       box-shadow: var(--shadow);
     }
 
@@ -1024,22 +1036,43 @@
       font-size:.9rem;
     }
 
-    .ref-list{
-      display:grid;
-      gap:.65rem;
+    .references-list{
+      list-style: none;
+      display: grid;
+      gap: .7rem;
+      counter-reset: ref;
     }
 
-    .ref{
+    .references-list li{
+      counter-increment: ref;
       background:#fffdf9;
       border:1px solid #eadfce;
       border-radius:16px;
-      padding:.9rem 1rem;
+      padding:.95rem 1rem;
       color: var(--muted);
       font-size:.9rem;
       box-shadow: 0 8px 20px rgba(0,0,0,.025);
+      position: relative;
+      padding-left: 3rem;
     }
 
-    .ref strong{ color: var(--text); }
+    .references-list li::before{
+      content: "[" counter(ref) "]";
+      position: absolute;
+      left: 1rem;
+      top: .95rem;
+      color: #8c6c3c;
+      font-weight: 700;
+    }
+
+    .footnote{
+      font-size: .72em;
+      vertical-align: super;
+      line-height: 0;
+      color: #8c6c3c;
+      font-weight: 700;
+      margin-left: 1px;
+    }
 
     footer{
       padding: 48px 5vw 70px;
@@ -1106,23 +1139,6 @@
         font-size: 2.7rem;
       }
 
-      .hero-vertical{
-        display:none;
-      }
-
-      .hero-notes-grid{
-        padding: 1rem;
-      }
-
-      .hero-note-card{
-        grid-template-columns: 48px 1fr;
-      }
-
-      .hero-note-card .icon{
-        width: 48px;
-        height: 48px;
-      }
-
       .kpi-row{
         grid-template-columns:1fr;
       }
@@ -1133,6 +1149,15 @@
 
       .featured-overlay{
         min-height: 420px;
+      }
+
+      .hero-note-card{
+        grid-template-columns: 48px 1fr;
+      }
+
+      .hero-note-card .icon{
+        width: 48px;
+        height: 48px;
       }
     }
   </style>
@@ -1149,6 +1174,7 @@
       <a href="#impact">Impact</a>
       <a href="#risk">Risk</a>
       <a href="#end">End</a>
+      <a href="#references">Refs</a>
     </div>
   </nav>
 
@@ -1158,22 +1184,22 @@
         <div class="eyebrow"><span class="eyebrow-dot"></span> 2025 INDUSTRY ANALYSIS</div>
 
         <div class="hero-title-wrap">
-          <div class="hero-vertical">EDITORIAL REPORT</div>
           <h1 class="hero-title">
-            K-POP과 패션의 만남,<br>
-            <span class="accent-a">굿즈는 더 감각적이고</span><br>
-            <span class="accent-b">더 특별한 경험이 된다</span>
+            K-POP × 패션·라이프스타일,<br>
+            <span class="accent-a">콜라보형 굿즈는 어떻게</span><br>
+            <span class="accent-b">하나의 브랜드 경험이 되는가</span>
           </h1>
+          <p class="hero-subtitle">앰버서더 · 한정판 굿즈 · 캡슐 컬렉션 중심 분석</p>
         </div>
 
         <p class="hero-desc">
-          콜라보형 굿즈는 단순 판매 상품이 아니라, 팬덤의 취향과 브랜드의 이미지를 함께 소비하게 만드는 문화적 장치가 된다.
+          아티스트 IP와 브랜드가 만날 때, 굿즈는 단순 상품을 넘어 팬덤의 취향과 이미지를 함께 소비하는 문화적 오브제가 된다.
         </p>
 
         <div class="hero-chips">
           <div class="chip mustard">
             <svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/></svg>
-            팬덤 소비
+            팬덤 경제
           </div>
           <div class="chip blue">
             <svg viewBox="0 0 24 24"><path d="M4 7h16l-2 10H6L4 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
@@ -1186,7 +1212,7 @@
         </div>
 
         <div class="hero-note">
-          “성공한 협업은 제품을 파는 것이 아니라, 팬이 참여하고 싶어지는 분위기와 서사를 만든다.”
+          “성공한 협업은 제품을 파는 것이 아니라, 팬이 참여하고 싶어지는 분위기와 서사를 설계한다.”
         </div>
 
         <div class="divider">EDITORIAL NOTE</div>
@@ -1194,6 +1220,11 @@
 
       <div class="hero-side reveal">
         <div class="hero-notes-grid">
+          <div class="hero-notes-head">
+            <strong>REPORT SNAPSHOT</strong>
+            <span>summary panel</span>
+          </div>
+
           <div class="hero-note-card mustard">
             <div class="icon">
               <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="8"/></svg>
@@ -1201,7 +1232,7 @@
             <div>
               <small>KEY NOTE</small>
               <div class="big-num">94%</div>
-              <p>10~20대 굿즈 구매 경험률. 팬덤 소비는 이미 일상적이다.</p>
+              <p>10~20대 굿즈 구매 경험률. 팬덤 소비는 이미 일상적이다.<sup class="footnote">[5]</sup></p>
             </div>
           </div>
 
@@ -1211,7 +1242,7 @@
             </div>
             <div>
               <small>MOOD NOTE</small>
-              <p>좋은 협업은 ‘누가 붙었는가’보다 ‘얼마나 잘 어울리는가’에서 힘이 생긴다.</p>
+              <p>좋은 협업은 ‘누가 붙었는가’보다 ‘얼마나 잘 어울리는가’에서 힘이 생긴다.<sup class="footnote">[6]</sup></p>
             </div>
           </div>
 
@@ -1221,7 +1252,7 @@
             </div>
             <div>
               <small>FAN REACTION</small>
-              <p>구매 이후 인증, 공유, 재판매까지 이어질 때 협업은 하나의 문화 장면처럼 기억된다.</p>
+              <p>구매 이후 인증, 공유, 재판매까지 이어질 때 협업은 하나의 문화 장면처럼 기억된다.<sup class="footnote">[5]</sup></p>
             </div>
           </div>
         </div>
@@ -1237,7 +1268,7 @@
           <h2 class="section-title">음악은 스트리밍으로 듣고,<br>굿즈는 취향으로 소유한다</h2>
         </div>
         <p class="section-lead">
-          팬들은 더 이상 물건만 사지 않는다. 아티스트의 이미지, 브랜드의 분위기, 한정판의 희소성을 함께 소비한다.
+          K-POP 아이돌 IP는 패션·라이프스타일 산업과 결합하며 광고 모델을 넘어 콜라보형 굿즈 중심으로 진화하고 있다.<sup class="footnote">[1]</sup>
         </p>
       </div>
 
@@ -1245,7 +1276,7 @@
         <div class="statement reveal">
           <div class="mini">WHY IT WORKS</div>
           <h3>굿즈는 상품이라기보다<br>참여 경험에 가깝다</h3>
-          <p>팝업, 인증샷, 오픈런, 리셀까지 이어지는 소비 방식이 콜라보의 파급력을 키운다.</p>
+          <p>팬덤은 음악 소비를 넘어 브랜드 오브제로서 구매·수집하고, 이 과정에서 정체성과 취향을 함께 소비한다.<sup class="footnote">[1]</sup></p>
         </div>
 
         <div class="info-panel reveal">
@@ -1255,7 +1286,7 @@
             </div>
             <div>
               <strong>소장 가치</strong>
-              <p>스트리밍 시대일수록 실물 굿즈의 상징성이 커진다.</p>
+              <p>팬덤은 아이돌 IP를 수집가적 방식으로 소비한다.<sup class="footnote">[1]</sup></p>
             </div>
           </div>
           <div class="info-item">
@@ -1264,7 +1295,7 @@
             </div>
             <div>
               <strong>감정적 연결</strong>
-              <p>팬덤은 제품보다 그 안의 분위기와 서사에 반응한다.</p>
+              <p>아티스트 이미지·이름·디자인 감각이 상품 자체에 내재화된다.<sup class="footnote">[1]</sup></p>
             </div>
           </div>
           <div class="info-item">
@@ -1273,7 +1304,7 @@
             </div>
             <div>
               <strong>확산성</strong>
-              <p>구매 이후 SNS 공유와 재판매까지 반응이 이어진다.</p>
+              <p>구매는 품절, 인증, 공유, 리셀로 이어지며 더 큰 반응을 만든다.<sup class="footnote">[1]</sup></p>
             </div>
           </div>
         </div>
@@ -1293,7 +1324,7 @@
           <h2 class="section-title">숫자로 보는 팬덤 소비 반응</h2>
         </div>
         <p class="section-lead">
-          굿즈 구매 경험률, 한정판 선호, 오픈런 반응은 콜라보형 소비가 이미 강한 시장성을 갖고 있음을 보여준다.
+          보고서에는 팬덤 산업 규모, MD 매출, 설문 수치가 함께 제시되어 있어 시장성과 소비 반응을 동시에 보여준다.<sup class="footnote">[2][3][4][5]</sup>
         </p>
       </div>
 
@@ -1302,22 +1333,22 @@
           <div class="kpi mustard">
             <div class="kpi-label">굿즈 구매 경험</div>
             <strong class="counter" data-target="94">0</strong><span>%</span>
-            <small>높은 보편성</small>
+            <small>형지엘리트 설문</small>
           </div>
           <div class="kpi blue">
             <div class="kpi-label">한정판 선호</div>
             <strong class="counter" data-target="89">0</strong><span>%</span>
-            <small>희소성 효과</small>
+            <small>구매 욕구 비율</small>
           </div>
           <div class="kpi pink">
             <div class="kpi-label">오픈런 경험·의향</div>
             <strong class="counter" data-target="84">0</strong><span>%</span>
-            <small>이벤트형 소비</small>
+            <small>경험 27% + 의향 57%</small>
           </div>
           <div class="kpi gray">
             <div class="kpi-label">의류·패션 잡화 선호</div>
             <strong class="counter" data-target="21">0</strong><span>%</span>
-            <small>패션 확장성</small>
+            <small>포토카드 다음 2위</small>
           </div>
         </div>
       </div>
@@ -1325,7 +1356,7 @@
       <div class="chart-box reveal">
         <canvas id="collabChart"></canvas>
         <p class="chart-note">
-          굿즈 소비는 단순 구매보다 참여와 인증, 소장 욕구가 결합된 형태로 읽을 수 있다.
+          10~20대 굿즈 구매 경험률 94%, 한정판 굿즈 구매 욕구 89%, 오픈런 경험·의향 84%, 의류·패션 잡화 선호 21%.<sup class="footnote">[5]</sup>
         </p>
       </div>
     </div>
@@ -1339,7 +1370,7 @@
           <h2 class="section-title">기억에 남는 협업은<br>왜 오래 회자될까</h2>
         </div>
         <p class="section-lead">
-          브랜드 적합성, 희소성, 팬덤 반응, SNS 확산력이 함께 움직일 때 협업은 하나의 문화 장면처럼 기억된다.
+          블랙핑크, 지드래곤, 젠틀몬스터 등 사례는 협업의 성과와 방향성을 보여준다.<sup class="footnote">[6][7][8][9]</sup>
         </p>
       </div>
 
@@ -1351,7 +1382,7 @@
             <small>JENNIE × CALVIN KLEIN</small>
             <h3>“잘 어울리는 협업”은<br>광고보다 오래 남는다</h3>
             <p>
-              아티스트 이미지와 브랜드 분위기가 자연스럽게 맞물릴 때, 협업은 상품을 넘어 하나의 장면처럼 기억된다.
+              제니는 캘빈클라인 글로벌 앰버서더로 활동하며 캡슐 컬렉션에 직접 디자인 참여를 했고, 협업 캠페인 매출 기여는 903억 원으로 제시된다.<sup class="footnote">[6]</sup>
             </p>
             <div class="case-tags">
               <span>브랜드 적합성</span>
@@ -1370,7 +1401,7 @@
             </div>
             <div class="case-small-body">
               <h3>지드래곤 × 나이키</h3>
-              <p>희소성과 상징성이 결합되며 리셀 시장까지 확장된 스니커즈 협업.</p>
+              <p>Para-Noise 컬렉션은 발매 즉시 정가 대비 수 배 리셀가를 형성한 사례로 정리된다.<sup class="footnote">[7]</sup></p>
               <div class="small-tags">
                 <span>희소성</span>
                 <span>리셀 파급력</span>
@@ -1381,16 +1412,16 @@
 
           <article class="case-small reveal">
             <div class="case-small-media">
-              <img src="맥도날드-뉴진스-굿즈.png" alt="뉴진스 맥도날드 협업">
+              <img src="제니 젠틀몬스터 게임.png" alt="젠틀몬스터 제니 협업">
               <div class="stamp blue">lifestyle</div>
             </div>
             <div class="case-small-body">
-              <h3>뉴진스 × 맥도날드</h3>
-              <p>패션을 넘어 K-POP 감성이 일상 소비와 결합할 수 있음을 보여준다.</p>
+              <h3>젠틀몬스터 × 제니</h3>
+              <p>협업 게임 앱은 출시 하루 만에 앱스토어 한국 부문 1위, 40만 다운로드를 기록했다.<sup class="footnote">[8]</sup></p>
               <div class="small-tags">
-                <span>대중성</span>
-                <span>체험형 소비</span>
-                <span>확산성</span>
+                <span>디지털 확장</span>
+                <span>복합 IP</span>
+                <span>조기 완판</span>
               </div>
             </div>
           </article>
@@ -1407,7 +1438,7 @@
           <h2 class="section-title">누가 어떤 영향을 받는가</h2>
         </div>
         <p class="section-lead">
-          콜라보형 굿즈는 브랜드, 아티스트, 팬덤, 산업 구조 전반에서 인식과 행동을 바꾼다.
+          보고서는 파트너 브랜드, 엔터사·아티스트, 소비자·팬덤, 산업 구조라는 네 축으로 영향을 정리한다.<sup class="footnote">[1][3][4][10]</sup>
         </p>
       </div>
 
@@ -1423,7 +1454,7 @@
             </div>
             브랜드
           </div>
-          <div class="impact-body">젊은 소비자와의 접점을 넓히고, 브랜드 이미지를 더 트렌디하게 만든다.</div>
+          <div class="impact-body">직접 매출, 품절 효과, 손민수 효과, Z세대 접근성 확보가 핵심이다.<sup class="footnote">[1][6]</sup></div>
         </div>
 
         <div class="impact-strip reveal">
@@ -1433,7 +1464,7 @@
             </div>
             아티스트·엔터사
           </div>
-          <div class="impact-body">아티스트 IP의 활용 폭이 넓어지고, 수익 구조도 더 다양해진다.</div>
+          <div class="impact-body">하이브 굿즈 매출 1조 2,000억 원, 4대 엔터사 MD 매출 7,473억 원 등 IP 수익 다각화가 나타난다.<sup class="footnote">[3][4]</sup></div>
         </div>
 
         <div class="impact-strip reveal">
@@ -1443,7 +1474,7 @@
             </div>
             팬덤
           </div>
-          <div class="impact-body">구매는 끝이 아니라 팝업 방문, 인증, 공유, 리셀까지 이어지는 경험이 된다.</div>
+          <div class="impact-body">팬덤은 패션 소비자화되고, 한정판 선호와 리셀 시장 형성으로 2차 경제권까지 만들어낸다.<sup class="footnote">[5][7]</sup></div>
         </div>
 
         <div class="impact-strip reveal">
@@ -1453,7 +1484,7 @@
             </div>
             산업
           </div>
-          <div class="impact-body">K-POP IP는 패션·뷰티·F&amp;B 등 다양한 시장으로 계속 확장된다.</div>
+          <div class="impact-body">K-POP은 글로벌 패션 트렌드 발신지로 기능하지만 규제 리스크도 함께 나타난다.<sup class="footnote">[10][11]</sup></div>
         </div>
       </div>
     </div>
@@ -1467,7 +1498,7 @@
           <h2 class="section-title">반응이 큰 만큼,<br>피로도도 함께 커질 수 있다</h2>
         </div>
         <p class="section-lead">
-          높은 화제성은 장점이지만, 과열 판매 구조와 상업성 논란은 신중하게 다뤄야 한다.
+          포토카드 끼워팔기 의혹, 반품·교환 제한, 소비자 상담 증가 등은 지속 가능성의 리스크다.<sup class="footnote">[10][11]</sup>
         </p>
       </div>
 
@@ -1475,21 +1506,21 @@
         <div class="statement reveal">
           <div class="mini">CAUTION</div>
           <h3>희소성은 매력적이지만,<br>과하면 피로를 만든다</h3>
-          <p>성공적인 협업일수록 공급 구조와 진정성, 운영 경험까지 함께 설계해야 한다.</p>
+          <p>지속 가능한 콜라보를 위해서는 공급 구조, 소비자 경험, 제도적 정비가 함께 고려되어야 한다.<sup class="footnote">[10][11]</sup></p>
         </div>
 
         <div class="risk-list">
           <div class="risk-note reveal">
             <h4>상업성 논란</h4>
-            <p>협업이 반복될수록 팬덤 피로도가 높아질 수 있다.</p>
+            <p>포토카드 끼워팔기, 과잉 소비 조장 논란이 제기되고 있다.<sup class="footnote">[10]</sup></p>
           </div>
           <div class="risk-note reveal">
             <h4>오픈런 과열</h4>
-            <p>품절과 예약 실패, 재고 부족은 부정적 경험으로 이어진다.</p>
+            <p>품절과 예약 실패, 한정판 경쟁은 부정적 경험으로도 이어질 수 있다.<sup class="footnote">[5][10]</sup></p>
           </div>
           <div class="risk-note reveal">
-            <h4>환경 이슈</h4>
-            <p>굿즈 과잉 생산은 ESG 관점의 비판을 받을 수 있다.</p>
+            <h4>제도적 정비 필요</h4>
+            <p>연예기획사 관련 소비자 상담 건수는 2019년 69건에서 2023년 283건으로 증가했다.<sup class="footnote">[11]</sup></p>
           </div>
         </div>
       </div>
@@ -1504,15 +1535,15 @@
           <h2 class="section-title">결국 중요한 것은<br>제품보다 분위기다</h2>
         </div>
         <p class="section-lead">
-          K-POP × 패션 협업의 힘은 유명세 자체보다, 팬이 참여하고 싶어지는 경험을 만드는 데 있다.
+          K-POP × 패션·라이프스타일 콜라보 굿즈는 이제 일회성 마케팅이 아니라 글로벌 패션 생태계를 재편하는 구조적 힘으로 작동한다.<sup class="footnote">[1][12]</sup>
         </p>
       </div>
 
       <div class="end-wrap">
         <div class="end-card reveal">
-          <h3>기억에 남는 콜라보는<br>“무엇을 팔았는가”보다<br>“어떤 느낌을 만들었는가”에 가깝다.</h3>
-          <p>브랜드 적합성, 희소성, 팬덤 경험이 자연스럽게 연결될수록 협업은 더 오래 남는다.</p>
-          <p>그래서 좋은 콜라보는 광고보다 하나의 문화 장면처럼 기억된다.</p>
+          <h3>기억에 남는 콜라보는<br>“무엇을 팔았는가”보다<br>“어떤 경험을 설계했는가”에 가깝다.</h3>
+          <p>손민수 효과, 한정판 품절 마케팅, 아티스트-브랜드 통합형 모델은 앞으로도 더 진화할 가능성이 높다.<sup class="footnote">[6][7][12]</sup></p>
+          <p>향후 방향성으로는 디지털 패션, 지속가능 패션, 팬덤 참여형 공동 디자인이 제시된다.<sup class="footnote">[12]</sup></p>
         </div>
 
         <div class="end-points reveal">
@@ -1541,15 +1572,24 @@
           <h2 class="section-title">참고 자료</h2>
         </div>
         <p class="section-lead">
-          제출 전에는 실제 링크와 연도를 조금 더 정확하게 정리하면 신뢰감이 더 올라간다.
+          첨부 보고서의 참고문헌을 바탕으로 정리한 번호형 참고자료 목록이다.
         </p>
       </div>
 
-      <div class="ref-list">
-        <div class="ref reveal"><strong>형지엘리트</strong> — 1020세대 굿즈 구매 행태 조사 (2023.05)</div>
-        <div class="ref reveal"><strong>제니 × 캘빈클라인</strong> — 협업 성과 및 패션 브랜드 사례</div>
-        <div class="ref reveal"><strong>지드래곤 × 나이키</strong> — 리셀 및 스트리트 패션 사례</div>
-      </div>
+      <ol class="references-list">
+        <li>한국국제교류재단, K-POP 팬덤 산업 규모 관련 자료, 2022.</li>
+        <li>한국문화관광연구원, 「데이터로 살펴본 K팝 해외 매출액 동향」, 2024.</li>
+        <li>대신증권 Research Center, 엔터테인먼트 산업 분석 보고서, 2023.11.</li>
+        <li>국회 문화체육관광위원회, 하이브 굿즈 매출 제출 자료, 2024.</li>
+        <li>형지엘리트, 10~20대 굿즈 구매 행태 설문조사, 2023.05.</li>
+        <li>WWD, 칸 영화제 MIV 분석 및 제니 관련 보도, 2023.</li>
+        <li>리셀가 및 스트리트 패션 관련 자료, 지드래곤 × 나이키 사례.</li>
+        <li>젠틀몬스터 × 제니 협업 및 게임 앱 성과 관련 자료.</li>
+        <li>트렌비, 제니 착용 자크뮈스 판매량 분석, 2022.</li>
+        <li>경향스포츠, 「하이브 아이돌 굿즈 갑질」, 2024.10.</li>
+        <li>연예기획사 소비자 상담 건수 관련 보도 및 공정위 조사 자료.</li>
+        <li>Design+, fpost, 제일매거진 등 K-패션·아이돌 마케팅 관련 기사.</li>
+      </ol>
     </div>
   </section>
 
